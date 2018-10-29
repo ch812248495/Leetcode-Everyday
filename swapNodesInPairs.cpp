@@ -15,13 +15,18 @@ ListNode* seqpPairs(ListNode* head)
         return NULL;
     if(head->next == NULL)
         return head;
-    ListNode* pre;
-    ListNode* lat;
-    pre = head;
-    lat = head;
-    while(lat && pre)
+    ListNode* l1 = new ListNode(0);
+    ListNode* dummy = l1;
+    l1->next = head;
+    ListNode* l2 = head;
+    while(l2 && l2->next)
     {
-        lat = pre->next;
-        lat->next = pre;
+        ListNode* newStart = l2->next->next;
+        l1->next = l2->next;
+        l2->next->next = l2;
+        l2->next = newStart;
+        l1 = l2;
+        l2 = l2->next;
     }
+    return dummy->next;
 }
